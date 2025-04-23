@@ -40,8 +40,6 @@ export const useLogin = () => {
           userId: user_details.id,
           userRole: user_details.role_id,
         });
-
-        router.push("/dashboard");
       }
     },
   });
