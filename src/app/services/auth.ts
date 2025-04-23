@@ -4,11 +4,9 @@ import { useMutation } from "@tanstack/react-query";
 import { setAuthCookies } from "@/lib/cookies";
 
 interface LoginResponse {
-  data: {
     user_details: {
       id: string;
       role_id: string;
-    };
   };
 }
 
@@ -20,7 +18,7 @@ export const useLogin = () => {
   return useMutation<AxiosResponse<LoginResponse>, Error, { email: string; password: string }>({
     mutationFn: userLoginRequest,
     onSuccess: (response) => {
-      const { user_details } = response.data.data;
+      const { user_details } = response.data;
       setAuthCookies({
         userId: user_details.id,
         userRole: user_details.role_id,
