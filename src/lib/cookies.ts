@@ -15,24 +15,14 @@ export const getAuthCookies = () => {
   };
 };
 
-export const setAuthCookies = (data: {
-  accessToken: string;
-  userId: string;
-  userRole: string;
-}) => {
-  setCookie(null, COOKIE_KEYS.ACCESS_TOKEN, data.accessToken, {
+export const setAuthCookies = ({ userId, userRole }: { userId: string; userRole: string }) => {
+  setCookie(null, COOKIE_KEYS.USER_ID, userId, {
+    path: '/',
     maxAge: 30 * 24 * 60 * 60, // 30 days
-    path: '/',
   });
-
-  setCookie(null, COOKIE_KEYS.USER_ID, data.userId, {
-    maxAge: 30 * 24 * 60 * 60,
+  setCookie(null, COOKIE_KEYS.USER_ROLE, userRole, {
     path: '/',
-  });
-
-  setCookie(null, COOKIE_KEYS.USER_ROLE, data.userRole, {
-    maxAge: 30 * 24 * 60 * 60,
-    path: '/',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   });
 };
 
