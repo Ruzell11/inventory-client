@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import DEV_URL from "../common";
 import { setAuthCookies } from "@/lib/cookies";
@@ -27,8 +26,6 @@ export const userLoginRequest = async (params: LoginProps) => {
 };
 
 export const useLogin = () => {
-  const router = useRouter();
-  
   const loginMutation = useMutation({
     mutationFn: userLoginRequest,
     onSuccess: async (details: AxiosResponse) => {
