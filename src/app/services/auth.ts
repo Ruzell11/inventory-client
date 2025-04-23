@@ -13,7 +13,7 @@ interface LoginResponse {
 }
 
 export const userLoginRequest = async (data: { email: string; password: string }) => {
-  return axios.post<LoginResponse>(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, data);
+  return axios.post<LoginResponse>(`${process.env.NEXT_PUBLIC_API_URL}/login`, data);
 };
 
 export const useLogin = () => {
