@@ -4,11 +4,10 @@ import { useLogin } from "./services/auth";
 import { loginSchema, type LoginFormData } from "./validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const loginMutation = useLogin();
-  const router = useRouter()
+ 
   
   const {
     register,
@@ -19,11 +18,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = (data: LoginFormData) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => {
-        router.push('/dashboard/charts')
-      }
-    });
+    loginMutation.mutate(data)
   };
 
   return (

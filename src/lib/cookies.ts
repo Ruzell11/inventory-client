@@ -1,33 +1,35 @@
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import Cookies from 'js-cookie';
 
 export const COOKIE_KEYS = {
   ACCESS_TOKEN: 'access-token',
-  USER_ID: 'id',
-  USER_ROLE: 'role_id',
+  USER_ID: 'user_id',
+  USER_ROLE: 'user_role',
 } as const;
 
 export const getAuthCookies = () => {
-  const cookies = parseCookies();
   return {
-    accessToken: cookies[COOKIE_KEYS.ACCESS_TOKEN],
-    userId: cookies[COOKIE_KEYS.USER_ID],
-    userRole: cookies[COOKIE_KEYS.USER_ROLE],
+    accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN),
+    userId: Cookies.get(COOKIE_KEYS.USER_ID),
+    userRole: Cookies.get(COOKIE_KEYS.USER_ROLE),
   };
 };
 
-export const setAuthCookies = ({ userId, userRole }: { userId: string; userRole: string }) => {
-  setCookie(null, COOKIE_KEYS.USER_ID, userId, {
-    path: '/',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  });
-  setCookie(null, COOKIE_KEYS.USER_ROLE, userRole, {
-    path: '/',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  });
+export const setAuthCookies = ({
+  userId,
+  userRole,
+  token,
+}: {
+  userId: string;
+  userRole: string;
+  token: string;
+}) => {
+  Cookies.set(COOKIE_KEYS.USER_ID, userId, { expires: 30 });
+  Cookies.set(COOKIE_KEYS.USER_ROLE, userRole, { expires: 30 });
+  Cookies.set(COOKIE_KEYS.ACCESS_TOKEN, token, { expires: 30 });
 };
 
 export const clearAuthCookies = () => {
-  destroyCookie(null, COOKIE_KEYS.ACCESS_TOKEN, { path: '/' });
-  destroyCookie(null, COOKIE_KEYS.USER_ID, { path: '/' });
-  destroyCookie(null, COOKIE_KEYS.USER_ROLE, { path: '/' });
-}; 
+  Cookies.remove(COOKIE_KEYS.ACCESS_TOKEN);
+  Cookies.remove(COOKIE_KEYS.USER_ID);
+  Cookies.remove(COOKIE_KEYS.USER_ROLE);
+};
