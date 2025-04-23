@@ -1,15 +1,14 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
   children: React.ReactNode;
+  title?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export function Modal({ isOpen, onClose, children, title }: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -21,17 +20,19 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       />
       
       {/* Modal */}
-      <div className="relative z-50 w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+      <div className="relative z-50 w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-black">{title}</h2>
-          <button
-            onClick={onClose}
-            className="rounded-md p-1 hover:bg-gray-100"
-          >
-            <X className="h-5 w-5 text-black" />
-          </button>
-        </div>
+        {title && (
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold">{title}</h2>
+            <button
+              onClick={onClose}
+              className="rounded-full p-1 hover:bg-gray-100"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+        )}
         
         {/* Content */}
         <div className="text-black">

@@ -10,12 +10,12 @@ import { useAddProduct, useProductList } from "@/app/services/products";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
+interface ProductData {
+  _id: string;
+  product_name: string;
+  product_description: string;
+  product_price: string;
+  image_link: string;
 }
 
 export default function ProductsPage() {
@@ -122,7 +122,7 @@ export default function ProductsPage() {
                 </td>
               </tr>
             ) : (
-              productsData.data.productList.map((product: any) => (
+              productsData.data.productList.map((product: ProductData) => (
                 <tr key={product._id} className="border-b">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">{product.product_name}</td>
                   <td className="px-6 py-4 text-sm max-w-md text-black">

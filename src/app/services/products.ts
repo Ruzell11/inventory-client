@@ -1,15 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import jsCookie from "js-cookie";
-import DEV_URL from "../common";
-
-
-interface ProductProps {
-  image: File | null;
-  product_name: string | null;
-  product_description: string | null;
-  product_price: string | null;
-}
 
 export const userAddProduct = async (params: FormData) => {
   const user_id = jsCookie.get("id");
@@ -20,19 +11,16 @@ export const userAddProduct = async (params: FormData) => {
     withCredentials: true,
   };
 
-  const data = await axios.post(
-    `${DEV_URL.ROOT_URL}/products/create/${user_id}`,
+  return axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/create/${user_id}`,
     params,
     axiosConfig
   );
-
-  return data;
 };
 
 export const useAddProduct = () => {
   const { mutate, isSuccess, isError, isPending, data } = useMutation<AxiosResponse, Error, FormData>({
     mutationFn: userAddProduct,
-    onSuccess: (response: AxiosResponse) => {},
   });
 
   return { mutate, isSuccess, isError, isLoading: isPending, data };
@@ -49,7 +37,7 @@ export const getUserProductList = async (): Promise<AxiosResponse> => {
   return axios({
     method: "GET",
     withCredentials: true,
-    url: `${DEV_URL.ROOT_URL}/products/product-list?role_id=${role_id}&user_id=${userId}`,
+    url: `${process.env.NEXT_PUBLIC_API_URL}/products/product-list?role_id=${role_id}&user_id=${userId}`,
   });
 };
 
